@@ -85,7 +85,6 @@ class CreatePost extends Component {
                                    <label> Body:</label>
                                     <CKEditor
                                         editor={ ClassicEditor }
-
                                         onChange={ ( event, editor ) => {
                                             const data = editor.getData();
                                             this.setState({
