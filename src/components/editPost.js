@@ -7,12 +7,11 @@ class EditPost extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            editData: '',
-
             title: '',
             newCategory: '',
             body: '',
 
+            editPost: '',
             category: ''
          }
     }

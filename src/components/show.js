@@ -7,6 +7,9 @@ class Show extends Component {
     constructor(props) {
         super(props);
         this.state = { post:'', }
+
+        this.DeletePost = this.DeletePost.bind(this);
+
     }
     render() { 
         let PostData = this.state.post;
@@ -22,12 +25,12 @@ class Show extends Component {
                                 <h1>{PostData.title}</h1>
                                 <div>{ReactHtmlParser(PostData.body)}</div>
                                 <div className="d-flex justify-content-end">
-                                    <i className="fa fa-ellipsis-h p-2"  id="dropdownMenuButton" data-toggle="dropdown" ></i>
+                                    <button className="btn btn-sm btn-warning"  id="dropdownMenuButton" data-toggle="dropdown">Menu</button>
                                     <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                         <Link to={`/edit/${PostData.slug}`} className="dropdown-item">
                                             Edit
                                         </Link> 
-                                        <a className="dropdown-item" >Delete</a>
+                                        <a className="dropdown-item" onClick={this.DeletePost}>Delete</a>
                                     </div>
                                 </div>
                             </div>
@@ -49,7 +52,7 @@ class Show extends Component {
 
     Post(){
         const slug = this.props.match.params.id;
-        console.log(slug);
+        // console.log(slug);
         
         axios.get('http://127.0.0.1:8000/api/posts/'+slug)
         .then(res => {
@@ -61,6 +64,19 @@ class Show extends Component {
         .catch(function (error) {
             console.log(error);
         })
+    }
+
+    DeletePost(){
+        const slug = this.props.match.params.id;
+        axios.delete('http://127.0.0.1:8000/api/posts/'+slug)
+        .then(res =>{
+            console.log(res);
+        })
+        .catch((error) => {
+            this.props.history.push('/');
+            console.log(error);
+        })
+        
     }
 }
  
